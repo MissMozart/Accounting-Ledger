@@ -2,7 +2,6 @@ package com.yearup.accounting_ledger;
 
 import java.io.*;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -112,7 +111,42 @@ public class Ledger {
 
 
     public static void printDeposits() {
+        Collections.sort(allTransactions, new Comparator<Transaction>() {
+            public int compare(Transaction t1, Transaction t2) {
+                return t2.getDate().compareTo(t1.getDate());
+            }
+        });
 
+        LocalDate currently = LocalDate.now();
+        int start = 0;
+        int end = 1;
+        for (int i = 0; i < allTransactions.size(); i++) {
+
+            if (allTransactions.get(i).getDate().compareTo(currently) != 0) { // date has changed
+                List<Transaction> sub =
+                        allTransactions.subList(start, end); // this is the previous sublist when the date changes
+                Collections.sort(sub, new Comparator<Transaction>() {
+                    public int compare(Transaction t1, Transaction t2) {
+                        return t2.getTime().compareTo(t1.getTime());
+                    }
+                });
+                start = i;
+                end = i;
+            } else {
+                end = i;
+                continue;
+            }
+        }
+
+        for (Transaction deposit : allTransactions) {
+            if (deposit.getAmount() > 0) {
+                System.out.println(deposit.getDate() + " " +
+                        deposit.getTime() + " " +
+                        deposit.getDescription() + " " +
+                        deposit.getVendor() + " " +
+                        deposit.getAmount());
+            }
+        }
     }
 
     public static void printPayments() {

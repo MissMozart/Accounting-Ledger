@@ -58,7 +58,7 @@ public class MainApp {
             LocalDate date = LocalDate.now();
             LocalTime time = LocalTime.now();
             String text = time.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-            LocalTime parsedTime = LocalTime.parse(text, DateTimeFormatter.ofPattern("HH:mm:ss"));
+            LocalTime parsedTime = LocalTime.parse(text, DateTimeFormatter.ofPattern("HH:mm:ss")); // Don't show milliseconds
             Scanner scanner = new Scanner(System.in);
 
             System.out.println("Enter Description:");
@@ -102,6 +102,8 @@ public class MainApp {
             do {
                 LocalDate date = LocalDate.now();
                 LocalTime time = LocalTime.now();
+                String text = time.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+                LocalTime parsedTime = LocalTime.parse(text, DateTimeFormatter.ofPattern("HH:mm:ss")); // Don't show milliseconds
                 Scanner scanner = new Scanner(System.in);
 
                 System.out.println("Enter Description:");
@@ -113,7 +115,7 @@ public class MainApp {
                 // write to file
                 try (FileWriter fileWriter = new FileWriter("transactions.csv", true)) {
                     fileWriter.write("\n" + date + "|" +
-                            time + "|" +
+                            parsedTime + "|" +
                             description + "|" +
                             vendor + "|-" +
                             amount);
