@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 
@@ -53,8 +54,11 @@ public class MainApp {
         boolean depositDone = false;
         // repeat adding deposits until user says n (no), then take them back to the main menu.
         while (!depositDone) {
+
             LocalDate date = LocalDate.now();
             LocalTime time = LocalTime.now();
+            String text = time.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+            LocalTime parsedTime = LocalTime.parse(text, DateTimeFormatter.ofPattern("HH:mm:ss"));
             Scanner scanner = new Scanner(System.in);
 
             System.out.println("Enter Description:");
