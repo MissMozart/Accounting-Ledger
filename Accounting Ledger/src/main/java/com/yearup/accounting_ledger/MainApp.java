@@ -2,8 +2,7 @@ package com.yearup.accounting_ledger;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -20,7 +19,7 @@ public class MainApp {
     public static void homeScreen() {
         Scanner scanner = new Scanner(System.in);
         boolean screenDone = false;
-        while (!screenDone) {
+        while (!screenDone) { // while screenDone is false, repeat showing the menu.
             String heading = """
                     Welcome! Here is our main menu:
                     D) Add Deposit
@@ -54,14 +53,15 @@ public class MainApp {
         boolean depositDone = false;
         // repeat adding deposits until user says n (no), then take them back to the main menu.
         while (!depositDone) {
-
-            LocalDate date = LocalDate.now();
-            LocalTime time = LocalTime.now();
-            String text = time.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-            LocalTime parsedTime = LocalTime.parse(text, DateTimeFormatter.ofPattern("HH:mm:ss")); // Don't show milliseconds
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println("Enter Description:");
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+            String date = now.format(dateFormatter);
+            String time = now.format(timeFormatter);
+
+            System.out.println("ADD DEPOSIT\nEnter Description:");
             String description = scanner.nextLine();
             System.out.println("Enter Vendor:");
             String vendor = scanner.nextLine();
@@ -83,7 +83,7 @@ public class MainApp {
                 System.out.println("That didn't work. Please try again.");
             }
 
-            System.out.println("Do you want to make another deposit? (y/n)");
+            System.out.println("\nDo you want to make another deposit? (y/n)");
             // flush the scanner
             scanner.nextLine();
             String input = scanner.nextLine();
@@ -98,15 +98,17 @@ public class MainApp {
     }
         public static void makePayment() {
             boolean paymentDone = false;
+            // repeat adding payments until the user says n (no), then take them back to the main menu
+            while (!paymentDone) {
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                String date = now.format(dateFormatter);
+                String time = now.format(timeFormatter);
 
-            do {
-                LocalDate date = LocalDate.now();
-                LocalTime time = LocalTime.now();
-                String text = time.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-                LocalTime parsedTime = LocalTime.parse(text, DateTimeFormatter.ofPattern("HH:mm:ss")); // Don't show milliseconds
                 Scanner scanner = new Scanner(System.in);
 
-                System.out.println("Enter Description:");
+                System.out.println("MAKE PAYMENT\nEnter Description:");
                 String description = scanner.nextLine();
                 System.out.println("Enter Vendor:");
                 String vendor = scanner.nextLine();
@@ -114,8 +116,8 @@ public class MainApp {
                 double amount = scanner.nextDouble();
                 // write to file
                 try (FileWriter fileWriter = new FileWriter("transactions.csv", true)) {
-                    fileWriter.write("\n" + date + "|" +
-                            parsedTime + "|" +
+                    fileWriter.write( "\n" + date + "|" +
+                            time + "|" +
                             description + "|" +
                             vendor + "|-" +
                             amount);
@@ -125,16 +127,16 @@ public class MainApp {
                     System.out.println("That didn't work. Please try again.");
                 }
                 System.out.println("Do you want to make another payment? (y/n)");
-                // flush the scanner
-                scanner.nextLine();
+
+                scanner.nextLine(); // flush the scanner
                 String input = scanner.nextLine();
                 if (input.equals("y")) {
                     paymentDone = false;
                 } else if (input.equals("n")) {
                     paymentDone = true;
+                    homeScreen();
                 }
-            } while (!paymentDone);
-
+            }
+            System.out.println("\n");
         }
     }
-
