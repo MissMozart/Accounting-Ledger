@@ -1,12 +1,35 @@
-Accounting Ledger
+# Accounting Ledger
 
-This project is an accounting ledger which reads transactions from a .csv file. It has the features of adding deposits, making payments, and the ledger which displays the transactions by filtering.
-Inside the ledger, transactions can be shown for all, just deposits and payments, and by reports, which has it's own menu.
-The filtering options inside the reports display transactions of the current month, last month, current year, last year or by vendor.
+This project is an accounting ledger written in Java which reads and writes transactions from and to a .csv file. The main class is called MainApp.java.
+## Main menu options
+- Add Deposit
+- Make Payment
+- Ledger
+
+The ledger has its own menu.
+## Ledger menu
+- All Entries
+- Deposits
+- Payments
+- Reports
+
+The Reports have its own menu.
+## Reports menu
+- Current Month
+- Last Month
+- Current Year
+- Last Year
+- By Vendor
 
 The transactions are always shown with the latest on top and the oldest on the bottom of the list. 
 
-I'm using switch statements for the menu options in the code, which I have not done before. I think, in this case, it looks cleaner than an if statement. 
+A limitation of the program is that it doesn't take String input when it asks for an amount. 
+
+## Special part of code
+A special part of my code is that the program asks if you want to make another payment or deposit before taking you back to the main menu.
+
+## Thank you
+to A'sha Shepard, Mohammed Ahmed, Cristi Savca and Javier Chavez for all the help they gave me.
 
 Here are some example pictures of the code:
 
