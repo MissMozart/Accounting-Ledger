@@ -2,22 +2,26 @@ package com.yearup.accounting_ledger;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 
 
 public class MainApp {
 
-    public MainApp() throws IOException {
+    public MainApp() {
     }
+    public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+
         homeScreen();
     }
 
     public static void homeScreen() {
-        Scanner scanner = new Scanner(System.in);
+
         boolean screenDone = false;
         while (!screenDone) { // while screenDone is false, repeat showing the menu.
             String heading = """
@@ -29,7 +33,6 @@ public class MainApp {
                     """;
             System.out.println(heading);
 
-            // switch statement for all possible options in the main menu.
             String input = scanner.nextLine();
             switch (input.toUpperCase()) {
                 case "D":
@@ -39,10 +42,10 @@ public class MainApp {
                 case "L":
                     Ledger.showLedger();
                 case "X":
-                    screenDone = true;
+                    System.out.println("Goodbye!");
                     System.exit(0);
                 default:
-                    System.out.println("That didn't work. Please try again.");
+                    System.out.println("That didn't work. Please try again.\n");
 
             }
         }
@@ -53,13 +56,8 @@ public class MainApp {
         boolean depositDone = false;
         // repeat adding deposits until user says n (no), then take them back to the main menu.
         while (!depositDone) {
-            Scanner scanner = new Scanner(System.in);
 
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-            String date = now.format(dateFormatter);
-            String time = now.format(timeFormatter);
+
 
             System.out.println("ADD DEPOSIT\nEnter Description:");
             String description = scanner.nextLine();
@@ -70,9 +68,10 @@ public class MainApp {
 
             // write to file
             try (FileWriter fileWriter = new FileWriter("transactions.csv", true)) {
+
                 fileWriter.write("\n" +
-                        date + "|" +
-                        time + "|" +
+                        LocalDate.now() + "|" +
+                        LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "|" +
                         description + "|" +
                         vendor + "|" +
                         amount);
@@ -84,8 +83,8 @@ public class MainApp {
             }
 
             System.out.println("\nDo you want to make another deposit? (y/n)");
-            // flush the scanner
-            scanner.nextLine();
+
+            scanner.nextLine(); // flush the scanner
             String input = scanner.nextLine();
             if (input.equals("y")) {
                 depositDone = false;
@@ -94,19 +93,13 @@ public class MainApp {
                 homeScreen();
             }
         }
-
+        System.out.println("\n");
     }
         public static void makePayment() {
             boolean paymentDone = false;
             // repeat adding payments until the user says n (no), then take them back to the main menu
             while (!paymentDone) {
-                LocalDateTime now = LocalDateTime.now();
-                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-                String date = now.format(dateFormatter);
-                String time = now.format(timeFormatter);
 
-                Scanner scanner = new Scanner(System.in);
 
                 System.out.println("MAKE PAYMENT\nEnter Description:");
                 String description = scanner.nextLine();
@@ -116,8 +109,8 @@ public class MainApp {
                 double amount = scanner.nextDouble();
                 // write to file
                 try (FileWriter fileWriter = new FileWriter("transactions.csv", true)) {
-                    fileWriter.write( "\n" + date + "|" +
-                            time + "|" +
+                    fileWriter.write( "\n" + LocalDate.now() + "|" +
+                            LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "|" +
                             description + "|" +
                             vendor + "|-" +
                             amount);
@@ -138,5 +131,9 @@ public class MainApp {
                 }
             }
             System.out.println("\n");
+        }
+        public static void header() {
+            System.out.println("DATE           TIME        DESCRIPTION         VENDOR                     AMOUNT");
+            System.out.println("-----------------------------------------------------------------------------------");
         }
     }
