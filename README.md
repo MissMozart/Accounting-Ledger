@@ -3,6 +3,7 @@ Accounting Ledger
 This project is an accounting ledger which reads transactions from a .csv file. It has the features of adding deposits, making payments, and the ledger which displays the transactions by filtering.
 Inside the ledger, transactions can be shown for all, just deposits and payments, and by reports, which has it's own menu.
 The filtering options inside the reports display transactions of the current month, last month, current year, last year or by vendor.
+
 The transactions are always shown with the latest on top and the oldest on the bottom of the list. 
 
 I'm using switch statements for the menu options in the code, which I have not done before. I think, in this case, it looks cleaner than an if statement. 
