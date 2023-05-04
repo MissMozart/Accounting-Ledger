@@ -5,7 +5,7 @@ Inside the ledger, transactions can be shown for all, just deposits and payments
 The filtering options inside the reports display transactions of the current month, last month, current year, last year or by vendor.
 The transactions are always shown with the latest on top and the oldest on the bottom of the list. 
 
-I'm using switch statements for the menu options in the code, which I have not done before. 
+I'm using switch statements for the menu options in the code, which I have not done before. I think, in this case, it looks cleaner than an if statement. 
 
 Here are some example pictures of the code:
 
