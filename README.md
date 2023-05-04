@@ -25,6 +25,8 @@ The transactions are always shown with the latest on top and the oldest on the b
 
 A limitation of the program is that it doesn't take String input when it asks for an amount. 
 
+Things that can be improved are handling incorrect input (for now it gives an error) and adding a User Interface.
+
 ## Special part of code
 A special part of my code is that the program asks if you want to make another payment or deposit before taking you back to the main menu.
 
