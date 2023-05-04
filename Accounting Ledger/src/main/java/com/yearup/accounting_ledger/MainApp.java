@@ -37,8 +37,10 @@ public class MainApp {
             switch (input.toUpperCase()) {
                 case "D":
                     addDeposit();
+                    break;
                 case "P":
                     makePayment();
+                    break;
                 case "L":
                     Ledger.showLedger();
                 case "X":
@@ -90,7 +92,6 @@ public class MainApp {
                 depositDone = false;
             } else if (input.equals("n")) {
                 depositDone = true;
-                homeScreen();
             }
         }
         System.out.println("\n");
@@ -105,7 +106,7 @@ public class MainApp {
                 String description = scanner.nextLine();
                 System.out.println("Enter Vendor:");
                 String vendor = scanner.nextLine();
-                System.out.println("Enter Deposit Amount:");
+                System.out.println("Enter Payment Amount:");
                 double amount = scanner.nextDouble();
                 // write to file
                 try (FileWriter fileWriter = new FileWriter("transactions.csv", true)) {
@@ -127,7 +128,6 @@ public class MainApp {
                     paymentDone = false;
                 } else if (input.equals("n")) {
                     paymentDone = true;
-                    homeScreen();
                 }
             }
             System.out.println("\n");
