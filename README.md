@@ -31,7 +31,7 @@ Things that can be improved are handling incorrect input (for now it gives an er
 A special part of my code is that the program asks if you want to make another payment or deposit before taking you back to the main menu.
 
 ## Thank you
-to A'sha Shepard, Mohammed Ahmed, Cristi Savca and Javier Chavez for all the help.
+to Paul Kimball, A'sha Shepard, Mohammed Ahmed, Cristi Savca and Javier Chavez for all the help.
 
 ## Example code
 
